@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="校园IT技术服务 - 专业程序调试服务，代码bug修复、性能优化、技术支持" />
+  <meta name="keywords" content="程序调试,bug修复,代码优化,技术支持" />
+  <title>程序调试 - 校园IT技术服务</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #8b5cf6;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .service-details {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 4rem;
+    }
+
+    .service-details h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-details ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-details li {
+      padding: 0.75rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .service-details li::before {
+      content: '✓';
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .debug-process {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .process-step {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .process-number {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-weight: bold;
+    }
+
+    .process-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .supported-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    .tech-tag {
+      padding: 0.5rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tech-tag:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.popular {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .pricing-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .guarantee {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(99, 102, 241, 0.1));
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .guarantee-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .guarantee-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .guarantee-description {
+      color: var(--text-secondary);
+    }
+
+    .footer {
+      padding: 4rem 1.5rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../校园IT技术服务-优化版.html" class="navbar-logo">
+        <span>⚡</span>
+        <span>校园IT技术服务</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html" class="active">程序调试</a></li>
+        <li><a href="../校园IT技术服务-优化版.html#contact">在线咨询</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">程序调试服务</h1>
+      <p class="hero-subtitle">专业代码调试与bug修复服务，快速定位问题，优化代码性能，让您的程序稳定运行</p>
+      <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">
+        <span>立即咨询</span>
+        <span>→</span>
+      </a>
+    </section>
+
+    <div class="content">
+      <section>
+        <h2 class="section-title">服务内容</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3 class="feature-title">Bug定位</h3>
+            <p class="feature-description">快速定位代码中的bug，分析问题根源，提供解决方案和修复建议。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">性能优化</h3>
+            <p class="feature-description">分析代码性能瓶颈，优化算法和数据结构，提升程序运行效率。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">代码修复</h3>
+            <p class="feature-description">专业代码修复服务，确保修复后的代码符合规范，无副作用。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3 class="feature-title">代码审查</h3>
+            <p class="feature-description">代码质量审查，发现潜在问题，提供改进建议，提升代码健壮性。</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">调试流程</h2>
+        <div class="debug-process">
+          <article class="process-step">
+            <div class="process-number">1</div>
+            <h3 class="process-title">问题描述</h3>
+            <p class="process-description">提交代码和问题描述，说明期望行为</p>
+          </article>
+          <article class="process-step">
+            <div class="process-number">2</div>
+            <h3 class="process-title">分析定位</h3>
+            <p class="process-description">分析代码，定位问题根源</p>
+          </article>
+          <article class="process-step">
+            <div class="process-number">3</div>
+            <h3 class="process-title">方案提供</h3>
+            <p class="process-description">提供修复方案和优化建议</p>
+          </article>
+          <article class="process-step">
+            <div class="process-number">4</div>
+            <h3 class="process-title">修复验证</h3>
+            <p class="process-description">实施修复并验证效果</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="service-details">
+        <h3>支持的技术栈</h3>
+        <div class="supported-tech">
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Java</span>
+          <span class="tech-tag">C++</span>
+          <span class="tech-tag">C#</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Vue.js</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">Linux</span>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">服务套餐</h2>
+        <div class="pricing">
+          <article class="pricing-card">
+            <h3 class="pricing-title">单次调试</h3>
+            <div class="pricing-price">¥50/小时</div>
+            <p class="pricing-description">适合偶尔调试需求</p>
+            <ul class="pricing-features">
+              <li>按小时计费</li>
+              <li>问题定位与修复</li>
+              <li>修复说明文档</li>
+              <li>7天免费复查</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card popular">
+            <h3 class="pricing-title">月度套餐</h3>
+            <div class="pricing-price">¥800</div>
+            <p class="pricing-description">适合持续开发项目</p>
+            <ul class="pricing-features">
+              <li>20小时调试时间</li>
+              <li>优先响应服务</li>
+              <li>代码审查服务</li>
+              <li>性能优化建议</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card">
+            <h3 class="pricing-title">紧急服务</h3>
+            <div class="pricing-price">¥100/小时</div>
+            <p class="pricing-description">适合生产环境紧急问题</p>
+            <ul class="pricing-features">
+              <li>1小时内响应</li>
+              <li>7×24小时服务</li>
+              <li>优先修复处理</li>
+              <li>紧急问题专项</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="guarantee">
+        <div class="guarantee-icon">✅</div>
+        <h3 class="guarantee-title">修复保障</h3>
+        <p class="guarantee-description">修复后30天内出现同类问题免费重新修复，学生客户享9折优惠</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../校园IT技术服务-优化版.html">首页</a></li>
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+      </ul>
+      <p>© 校园IT技术服务. 保留所有权利.</p>
+    </div>
+  </footer>
+</body>
+</html>

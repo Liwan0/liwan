@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="校园IT技术服务 - 专业软件开发服务，支持Web应用、桌面程序、移动App开发" />
+  <meta name="keywords" content="软件开发,Web开发,移动App,定制开发" />
+  <title>软件开发 - 校园IT技术服务</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #8b5cf6;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .service-details {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 4rem;
+    }
+
+    .service-details h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-details ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-details li {
+      padding: 0.75rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .service-details li::before {
+      content: '✓';
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    .tech-tag {
+      padding: 0.5rem 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tech-tag:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.popular {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .pricing-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer {
+      padding: 4rem 1.5rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../校园IT技术服务-优化版.html" class="navbar-logo">
+        <span>⚡</span>
+        <span>校园IT技术服务</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="development.html" class="active">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+        <li><a href="../校园IT技术服务-优化版.html#contact">在线咨询</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">软件开发服务</h1>
+      <p class="hero-subtitle">定制化软件开发服务，支持Web应用、桌面程序、移动App开发，从需求分析到交付上线全流程服务</p>
+      <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">
+        <span>立即咨询</span>
+        <span>→</span>
+      </a>
+    </section>
+
+    <div class="content">
+      <section>
+        <h2 class="section-title">服务特色</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3 class="feature-title">需求分析</h3>
+            <p class="feature-description">深入了解您的业务需求，提供专业的技术方案建议，确保项目目标明确。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">UI设计</h3>
+            <p class="feature-description">专业UI/UX设计团队，打造美观、易用的用户界面，提升用户体验。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">⚙️</div>
+            <h3 class="feature-title">全栈开发</h3>
+            <p class="feature-description">前后端技术全覆盖，使用主流技术栈，保证系统性能与稳定性。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">✅</div>
+            <h3 class="feature-title">测试部署</h3>
+            <p class="feature-description">严格测试流程，确保代码质量，支持多种部署方式，快速上线。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="service-details">
+        <h3>开发流程</h3>
+        <ul>
+          <li>需求沟通与分析</li>
+          <li>技术方案设计</li>
+          <li>原型与UI设计</li>
+          <li>开发与测试</li>
+          <li>部署上线</li>
+          <li>售后维护支持</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="section-title">技术栈</h2>
+        <div class="tech-stack">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Vue.js</span>
+          <span class="tech-tag">Angular</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Java</span>
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">MongoDB</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Git</span>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">服务套餐</h2>
+        <div class="pricing">
+          <article class="pricing-card">
+            <h3 class="pricing-title">基础版</h3>
+            <div class="pricing-price">面谈</div>
+            <p class="pricing-description">适合小型工具类应用</p>
+            <ul class="pricing-features">
+              <li>≤5个功能模块</li>
+              <li>单端开发</li>
+              <li>30天免费维护</li>
+              <li>技术文档交付</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card popular">
+            <h3 class="pricing-title">标准版</h3>
+            <div class="pricing-price">面谈</div>
+            <p class="pricing-description">适合企业级应用系统</p>
+            <ul class="pricing-features">
+              <li>5-15个功能模块</li>
+              <li>多端适配</li>
+              <li>90天免费维护</li>
+              <li>完整源码交付</li>
+              <li>技术支持服务</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card">
+            <h3 class="pricing-title">定制版</h3>
+            <div class="pricing-price">面谈</div>
+            <p class="pricing-description">适合复杂大型系统</p>
+            <ul class="pricing-features">
+              <li>不限功能模块</li>
+              <li>全平台覆盖</li>
+              <li>1年免费维护</li>
+              <li>专属技术团队</li>
+              <li>7×24小时支持</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../校园IT技术服务-优化版.html">首页</a></li>
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+      </ul>
+      <p>© 校园IT技术服务. 保留所有权利.</p>
+    </div>
+  </footer>
+</body>
+</html>
