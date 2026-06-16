@@ -244,19 +244,27 @@
       transform: translateY(-4px);
     }
 
-    .website-image {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
+  .website-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden; /* 隐藏超出部分 */
+}
 
-    .website-content {
-      padding: 1.5rem;
-    }
+.website-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 覆盖模式，保持比例并填充容器 */
+}
+
+.website-content {
+  padding: 1.5rem;
+  background: var(--bg-card); /* 添加背景色，确保文字区域不透明 */
+}
 
     .website-title {
       font-size: 1.25rem;
