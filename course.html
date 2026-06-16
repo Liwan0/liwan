@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="校园IT技术服务 - 课程系统定制，在线考试平台、作业提交系统、教学辅助工具" />
+  <meta name="keywords" content="课程系统,在线考试,作业管理,教学系统" />
+  <title>课程系统 - 校园IT技术服务</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #8b5cf6;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .service-details {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 4rem;
+    }
+
+    .service-details h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-details ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-details li {
+      padding: 0.75rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .service-details li::before {
+      content: '✓';
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .module-card:hover {
+      border-color: var(--primary-color);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .module-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .module-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .module-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.popular {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .pricing-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer {
+      padding: 4rem 1.5rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../校园IT技术服务-优化版.html" class="navbar-logo">
+        <span>⚡</span>
+        <span>校园IT技术服务</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html" class="active">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+        <li><a href="../校园IT技术服务-优化版.html#contact">在线咨询</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">课程系统定制</h1>
+      <p class="hero-subtitle">为教师定制课程管理系统、在线考试平台、作业提交系统等教学辅助工具，提升教学效率</p>
+      <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">
+        <span>立即咨询</span>
+        <span>→</span>
+      </a>
+    </section>
+
+    <div class="content">
+      <section>
+        <h2 class="section-title">系统特色</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3 class="feature-title">在线考试</h3>
+            <p class="feature-description">支持多种题型，自动阅卷评分，实时统计分析，减轻教师工作负担。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">📤</div>
+            <h3 class="feature-title">作业管理</h3>
+            <p class="feature-description">作业发布、提交、批改一体化，支持在线批注和反馈，提高教学互动。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">成绩分析</h3>
+            <p class="feature-description">可视化成绩报表，多维度数据分析，帮助教师了解学生学习情况。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3 class="feature-title">课程内容</h3>
+            <p class="feature-description">支持多媒体课件上传、在线播放、章节管理，打造数字化课程资源库。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="service-details">
+        <h3>核心功能模块</h3>
+        <ul>
+          <li>课程信息管理</li>
+          <li>学生选课系统</li>
+          <li>在线考试模块</li>
+          <li>作业提交系统</li>
+          <li>成绩管理分析</li>
+          <li>教学资源库</li>
+          <li>讨论交流区</li>
+          <li>学习进度追踪</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="section-title">功能模块详解</h2>
+        <div class="modules-grid">
+          <article class="module-card">
+            <div class="module-header">
+              <div class="module-icon">✏️</div>
+              <h3 class="module-title">在线考试</h3>
+            </div>
+            <p class="module-description">单选、多选、判断、问答等多种题型，支持随机出题、限时答题、自动批改。</p>
+          </article>
+          <article class="module-card">
+            <div class="module-header">
+              <div class="module-icon">📁</div>
+              <h3 class="module-title">作业管理</h3>
+            </div>
+            <p class="module-description">作业发布、提交、批改全流程管理，支持文件上传、在线批注、评分统计。</p>
+          </article>
+          <article class="module-card">
+            <div class="module-header">
+              <div class="module-icon">📈</div>
+              <h3 class="module-title">成绩分析</h3>
+            </div>
+            <p class="module-description">成绩统计报表、趋势分析、排名统计，直观展示班级和个人学习情况。</p>
+          </article>
+          <article class="module-card">
+            <div class="module-header">
+              <div class="module-icon">🎬</div>
+              <h3 class="module-title">课程资源</h3>
+            </div>
+            <p class="module-description">课件、视频、文档等资源管理，支持在线预览和下载，打造数字课程中心。</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">服务套餐</h2>
+        <div class="pricing">
+          <article class="pricing-card">
+            <h3 class="pricing-title">基础版</h3>
+            <div class="pricing-price">¥800</div>
+            <p class="pricing-description">适合单门课程使用</p>
+            <ul class="pricing-features">
+              <li>单课程管理</li>
+              <li>基础考试功能</li>
+              <li>作业提交系统</li>
+              <li>3个月免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card popular">
+            <h3 class="pricing-title">标准版</h3>
+            <div class="pricing-price">¥1800</div>
+            <p class="pricing-description">适合多门课程使用</p>
+            <ul class="pricing-features">
+              <li>多课程管理</li>
+              <li>完整考试系统</li>
+              <li>作业与成绩分析</li>
+              <li>课程资源库</li>
+              <li>6个月免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card">
+            <h3 class="pricing-title">高级版</h3>
+            <div class="pricing-price">¥3500</div>
+            <p class="pricing-description">适合院系级部署</p>
+            <ul class="pricing-features">
+              <li>多教师多课程</li>
+              <li>高级数据分析</li>
+              <li>学习进度追踪</li>
+              <li>移动端适配</li>
+              <li>1年免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../校园IT技术服务-优化版.html">首页</a></li>
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+      </ul>
+      <p>© 校园IT技术服务. 保留所有权利.</p>
+    </div>
+  </footer>
+</body>
+</html>

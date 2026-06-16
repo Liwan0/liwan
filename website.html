@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="校园IT技术服务 - 专业网站建设服务，企业官网、个人博客、电商平台快速搭建" />
+  <meta name="keywords" content="网站建设,企业官网,响应式设计,SEO优化" />
+  <title>网站建设 - 校园IT技术服务</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #8b5cf6;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .service-details {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      margin-bottom: 4rem;
+    }
+
+    .service-details h3 {
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-details ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-details li {
+      padding: 0.75rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .service-details li::before {
+      content: '✓';
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .websites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .website-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .website-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .website-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .website-content {
+      padding: 1.5rem;
+    }
+
+    .website-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .website-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-4px);
+    }
+
+    .pricing-card.popular {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .pricing-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .pricing-description {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 0.5rem 0;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .footer {
+      padding: 4rem 1.5rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="../校园IT技术服务-优化版.html" class="navbar-logo">
+        <span>⚡</span>
+        <span>校园IT技术服务</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html" class="active">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+        <li><a href="../校园IT技术服务-优化版.html#contact">在线咨询</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <h1 class="hero-title">网站建设服务</h1>
+      <p class="hero-subtitle">专业网站设计服务，包含企业官网、个人博客、电商平台、校园门户等各类网站快速搭建与优化</p>
+      <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">
+        <span>立即咨询</span>
+        <span>→</span>
+      </a>
+    </section>
+
+    <div class="content">
+      <section>
+        <h2 class="section-title">服务特色</h2>
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">响应式设计</h3>
+            <p class="feature-description">适配各种设备尺寸，手机、平板、电脑都能完美展示，提升用户体验。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3 class="feature-title">SEO优化</h3>
+            <p class="feature-description">专业SEO优化，提高搜索引擎排名，让更多用户找到您的网站。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">☁️</div>
+            <h3 class="feature-title">服务器部署</h3>
+            <p class="feature-description">提供稳定可靠的服务器部署服务，支持阿里云、腾讯云等主流平台。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">后续维护</h3>
+            <p class="feature-description">提供网站维护与更新服务，确保网站长期稳定运行。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="service-details">
+        <h3>网站类型</h3>
+        <ul>
+          <li>企业官网</li>
+          <li>个人博客</li>
+          <li>电商平台</li>
+          <li>校园门户</li>
+          <li>活动专题页</li>
+          <li>作品集展示</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="section-title">网站案例</h2>
+        <div class="websites-grid">
+          <article class="website-card">
+            <div class="website-image">
+              <img src="../企业官网.png" alt="企业官网" />
+            </div>
+            <div class="website-content">
+              <h3 class="website-title">企业官网</h3>
+              <p class="website-description">专业企业形象展示网站，包含产品展示、新闻动态、联系方式等功能。</p>
+            </div>
+          </article>
+          <article class="website-card">
+            <div class="website-image">
+              <img src="../个人博客.png" alt="个人博客" />
+            </div>
+            <div class="website-content">
+              <h3 class="website-title">个人博客</h3>
+              <p class="website-description">现代化博客系统，支持Markdown编辑、评论互动、分类归档等功能。</p>
+            </div>
+          </article>
+          <article class="website-card">
+            <div class="website-image">
+              <img src="../电商平台.png" alt="电商平台" />
+            </div>
+            <div class="website-content">
+              <h3 class="website-title">电商平台</h3>
+              <p class="website-description">完整的电商解决方案，支持商品管理、购物车、在线支付等功能。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">服务套餐</h2>
+        <div class="pricing">
+          <article class="pricing-card">
+            <h3 class="pricing-title">基础版</h3>
+            <div class="pricing-price">¥500</div>
+            <p class="pricing-description">适合个人或小型项目</p>
+            <ul class="pricing-features">
+              <li>5页以内静态网站</li>
+              <li>响应式设计</li>
+              <li>免费域名+空间</li>
+              <li>1年免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card popular">
+            <h3 class="pricing-title">标准版</h3>
+            <div class="pricing-price">¥1200</div>
+            <p class="pricing-description">适合中小企业官网</p>
+            <ul class="pricing-features">
+              <li>10页以内动态网站</li>
+              <li>响应式设计</li>
+              <li>SEO优化</li>
+              <li>免费域名+空间</li>
+              <li>1年免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+          <article class="pricing-card">
+            <h3 class="pricing-title">高级版</h3>
+            <div class="pricing-price">¥2800</div>
+            <p class="pricing-description">适合电商或复杂网站</p>
+            <ul class="pricing-features">
+              <li>不限页面数量</li>
+              <li>响应式设计</li>
+              <li>高级SEO优化</li>
+              <li>免费域名+空间</li>
+              <li>2年免费维护</li>
+            </ul>
+            <a href="../校园IT技术服务-优化版.html#contact" class="btn btn-primary">咨询详情</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li><a href="../校园IT技术服务-优化版.html">首页</a></li>
+        <li><a href="development.html">软件开发</a></li>
+        <li><a href="website.html">网站建设</a></li>
+        <li><a href="course.html">课程系统</a></li>
+        <li><a href="debug.html">程序调试</a></li>
+      </ul>
+      <p>© 校园IT技术服务. 保留所有权利.</p>
+    </div>
+  </footer>
+</body>
+</html>

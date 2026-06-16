@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="校园IT技术服务 - 专业的软件开发、网站建设、课程系统定制，提供AI智能咨询服务" />
+  <meta name="keywords" content="软件开发,网站建设,IT服务,课程系统,AI咨询" />
+  <meta name="author" content="校园IT技术服务团队" />
+  <title>校园IT技术服务 - AI智能咨询系统</title>
+  
+  <!-- Open Graph标签 -->
+  <meta property="og:title" content="校园IT技术服务 - AI智能咨询系统" />
+  <meta property="og:description" content="专业IT技术服务提供商，提供软件开发、网站建设、课程系统定制等服务" />
+  <meta property="og:type" content="website" />
+  
+  <!-- 引入 Puter SDK -->
+  <script src="https://js.puter.com/v2/"></script>
+  
+  <!-- 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "校园IT技术服务",
+    "description": "专业的软件开发、网站建设、课程系统定制服务",
+    "provider": {
+      "@type": "Organization",
+      "name": "校园IT技术服务团队",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+86-138-0000-0000",
+        "email": "techservice@email.com"
+      }
+    }
+  }
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #8b5cf6;
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* 骨架屏样式 */
+    .skeleton {
+      background: linear-gradient(90deg, var(--bg-card) 25%, #334155 50%, var(--bg-card) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 加载动画 */
+    .loading-spinner {
+      border: 3px solid var(--border-color);
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .navbar-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .navbar-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero区域 */
+    .hero {
+      padding: 8rem 1.5rem 4rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card);
+      border-color: var(--primary-color);
+    }
+
+    /* 服务卡片 */
+    .services {
+      padding: 4rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-color);
+      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+    }
+
+    .service-image-container {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .service-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover .service-image {
+      transform: scale(1.05);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      background: rgba(99, 102, 241, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .play-button:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: var(--primary-color);
+    }
+
+    .service-content {
+      padding: 1.5rem;
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .service-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-description {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .service-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-tag {
+      padding: 0.25rem 0.75rem;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary-color);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .service-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    /* 视频模态框 */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .modal-video {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 聊天区域 */
+    .chat-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+
+    .chat-toggle {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s;
+    }
+
+    .chat-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5);
+    }
+
+    .chat-window {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 400px;
+      max-height: 500px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: none;
+      flex-direction: column;
+    }
+
+    .chat-window.active {
+      display: flex;
+    }
+
+    .chat-header {
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chat-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-message {
+      max-width: 85%;
+      padding: 0.75rem 1rem;
+      border-radius: 16px;
+      animation: messageSlide 0.3s ease;
+    }
+
+    @keyframes messageSlide {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-user {
+      align-self: flex-end;
+      background: var(--primary-color);
+      border-radius: 16px 16px 4px 16px;
+    }
+
+    .message-bot {
+      align-self: flex-start;
+      background: var(--border-color);
+      border-radius: 16px 16px 16px 4px;
+    }
+
+    .message-loading {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .loading-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      animation: loadingPulse 1.4s infinite ease-in-out;
+    }
+
+    .loading-dot:nth-child(1) { animation-delay: 0s; }
+    .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes loadingPulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    .chat-input-container {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .chat-send {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .chat-send:hover {
+      background: var(--primary-hover);
+    }
+
+    /* 咨询引导区 */
+    .contact-section {
+      padding: 4rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-content {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .contact-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-description {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .contact-features {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .contact-feature-icon {
+      color: var(--success-color);
+      font-size: 1.25rem;
+    }
+
+    .contact-chat-button {
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .contact-chat-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    /* 页脚 */
+    .footer {
+      padding: 4rem 1.5rem;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .navbar-toggle {
+        display: block;
+      }
+
+      .hero-title {
+        font-size: 1.75rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chat-window {
+        width: calc(100vw - 2rem);
+        right: 1rem;
+      }
+
+      .modal-content {
+        aspect-ratio: unset;
+        height: auto;
+      }
+    }
+
+    /* 滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" role="navigation" aria-label="主导航">
+    <div class="navbar-container">
+      <a href="#" class="navbar-logo" aria-label="校园IT技术服务首页">
+        <span>⚡</span>
+        <span>校园IT技术服务</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="services/development.html">软件开发</a></li>
+        <li><a href="services/website.html">网站建设</a></li>
+        <li><a href="services/course.html">课程系统</a></li>
+        <li><a href="services/debug.html">程序调试</a></li>
+        <li><a href="#contact">在线咨询</a></li>
+        <li><a href="#about">关于我们</a></li>
+      </ul>
+      <button class="navbar-toggle" aria-label="切换导航菜单" aria-expanded="false">
+        ☰
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero区域 -->
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero-title">校园IT技术服务</h1>
+      <p class="hero-subtitle">专业的软件开发、网站建设、课程系统定制服务，AI智能助手24小时在线为您解答</p>
+      <div class="hero-buttons">
+        <a href="#services" class="btn btn-primary">
+          <span>了解服务</span>
+          <span>→</span>
+        </a>
+        <button id="heroChatButton" class="btn btn-secondary">
+          <span>🤖</span>
+          <span>在线咨询</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 服务展示 -->
+    <section id="services" class="services" aria-labelledby="services-title">
+      <h2 id="services-title" class="section-title">我们的服务</h2>
+      <div class="services-grid">
+        <article class="service-card" aria-labelledby="service-1-title">
+          <div class="service-image-container">
+            <img 
+              loading="lazy" 
+              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80" 
+              alt="软件开发服务" 
+              class="service-image"
+            />
+            <button 
+              class="play-button" 
+              aria-label="播放软件开发视频介绍"
+              data-video="./演示视频1.mp4"
+            >
+              ▶
+            </button>
+          </div>
+          <div class="service-content">
+            <div class="service-icon">💻</div>
+            <h3 id="service-1-title" class="service-title">软件开发</h3>
+            <p class="service-description">定制化软件开发服务，支持Web应用、桌面程序、移动App开发，从需求分析到交付上线全流程服务。</p>
+            <div class="service-features">
+              <span class="feature-tag">需求分析</span>
+              <span class="feature-tag">UI设计</span>
+              <span class="feature-tag">前后端开发</span>
+              <span class="feature-tag">测试部署</span>
+            </div>
+            <div class="service-price">面谈</div>
+          </div>
+        </article>
+
+        <article class="service-card" aria-labelledby="service-2-title">
+          <div class="service-image-container">
+            <img 
+              loading="lazy" 
+              src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80" 
+              alt="网站建设服务" 
+              class="service-image"
+            />
+            <button 
+              class="play-button" 
+              aria-label="播放网站建设视频介绍"
+              data-video=".\演示视频2.mp4"
+            >
+              ▶
+            </button>
+          </div>
+          <div class="service-content">
+            <div class="service-icon">🌐</div>
+            <h3 id="service-2-title" class="service-title">网站建设</h3>
+            <p class="service-description">专业网站设计服务，包含企业官网、个人博客、电商平台、校园门户等各类网站快速搭建与优化。</p>
+            <div class="service-features">
+              <span class="feature-tag">响应式设计</span>
+              <span class="feature-tag">SEO优化</span>
+              <span class="feature-tag">服务器部署</span>
+              <span class="feature-tag">后续维护</span>
+            </div>
+            <div class="service-price">¥500起</div>
+          </div>
+        </article>
+
+        <article class="service-card" aria-labelledby="service-3-title">
+          <div class="service-image-container">
+            <img 
+              loading="lazy" 
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" 
+              alt="课程系统定制服务" 
+              class="service-image"
+            />
+            <button 
+              class="play-button" 
+              aria-label="播放课程系统视频介绍"
+              data-video=".\演示视频3.mp4"
+            >
+              ▶
+            </button>
+          </div>
+          <div class="service-content">
+            <div class="service-icon">📚</div>
+            <h3 id="service-3-title" class="service-title">课程系统定制</h3>
+            <p class="service-description">为教师定制课程管理系统、在线考试平台、作业提交系统等教学辅助工具，提升教学效率。</p>
+            <div class="service-features">
+              <span class="feature-tag">在线考试</span>
+              <span class="feature-tag">作业管理</span>
+              <span class="feature-tag">成绩分析</span>
+              <span class="feature-tag">课程内容</span>
+            </div>
+            <div class="service-price">¥800起</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 咨询引导区 -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <div class="contact-content">
+        <div class="contact-icon">💬</div>
+        <h2 id="contact-title" class="contact-title">立即开始咨询</h2>
+        <p class="contact-description">
+          我们的AI智能助手24小时在线，随时为您解答关于软件开发、网站建设、课程系统和程序调试的问题。
+          无需填写表单，点击下方按钮即可开始对话。
+        </p>
+        <div class="contact-features">
+          <div class="contact-feature">
+            <span class="contact-feature-icon">✓</span>
+            <span>即时响应</span>
+          </div>
+          <div class="contact-feature">
+            <span class="contact-feature-icon">✓</span>
+            <span>智能问答</span>
+          </div>
+          <div class="contact-feature">
+            <span class="contact-feature-icon">✓</span>
+            <span>隐私保护</span>
+          </div>
+        </div>
+        <button class="contact-chat-button" id="contactChatButton" aria-label="打开AI智能助手">
+          <span>🤖</span>
+          <span>立即聊天</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>服务项目</h3>
+        <ul class="footer-links">
+          <li><a href="services/development.html">软件开发</a></li>
+          <li><a href="services/website.html">网站建设</a></li>
+          <li><a href="services/course.html">课程系统</a></li>
+          <li><a href="services/debug.html">程序调试</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>联系方式</h3>
+        <div class="footer-contact">
+          <p>📧 123456@163.com</p>
+          <p>📱 138-0000-0000</p>
+          <p>📍 校园IT技术服务中心</p>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>关于我们</h3>
+        <ul class="footer-links">
+          <li><a href="#about">公司简介</a></li>
+          <li><a href="#about">服务流程</a></li>
+          <li><a href="#about">成功案例</a></li>
+          <li><a href="#about">加入我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      ©  校园IT技术服务. 保留所有权利.
+    </div>
+  </footer>
+
+  <!-- 视频模态框 -->
+  <div class="modal-overlay" id="videoModal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <button class="modal-close" id="closeModal" aria-label="关闭视频">×</button>
+      <video id="modalVideo" class="modal-video" controls></video>
+    </div>
+  </div>
+
+  <!-- AI聊天窗口 -->
+  <div class="chat-container">
+    <button class="chat-toggle" id="chatToggle" aria-label="打开AI智能助手">🤖</button>
+    <div class="chat-window" id="chatWindow" aria-label="AI聊天窗口">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span>🤖</span>
+          <span>AI智能助手</span>
+        </div>
+        <button class="chat-close" id="chatClose" aria-label="关闭聊天窗口">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message message-bot">
+          您好！我是AI智能助手，很高兴为您服务！请问您有什么需求？
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input 
+          type="text" 
+          class="chat-input" 
+          id="chatInput" 
+          placeholder="输入您的问题..."
+          aria-label="聊天输入框"
+        />
+        <button class="chat-send" id="chatSend" aria-label="发送消息">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // DOM元素
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWindow = document.getElementById('chatWindow');
+    const chatClose = document.getElementById('chatClose');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatMessages = document.getElementById('chatMessages');
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const closeModal = document.getElementById('closeModal');
+    const playButtons = document.querySelectorAll('.play-button');
+
+    // DeepSeek AI 配置 - 使用 Puter SDK（无需 API Key）
+    const SYSTEM_PROMPT = `
+你是校园IT技术服务的智能助手，专业、友好地回答客户的咨询。
+
+服务范围：
+1. 💻 软件开发 - 定制化应用开发（Web应用、桌面程序、移动App）
+2. 🌐 网站建设 - 企业官网、个人博客、电商平台、校园门户
+3. 📚 课程系统 - 在线考试、作业管理、成绩分析
+4. 🔧 程序调试 - Bug修复、性能优化、代码审查
+
+价格参考：
+- 网站建设：¥500起
+- 课程系统：¥800起
+- 程序调试：¥50/小时
+- 软件开发：面谈
+
+交付时间：
+- 简单网站：3-5天
+- 企业官网：7-10天
+- 管理系统：15-20天
+
+售后服务：
+- 30天免费bug修复
+- 3个月免费小功能优化
+- 终身技术咨询
+- 学生客户专享9折优惠
+
+联系方式：
+- 邮箱：techservice@email.com
+- 电话/微信：138-0000-0000
+
+请用自然、友好的语言回答用户问题，尽量使用中文。
+    `.trim();
+
+    // 消息历史记录
+    let messageHistory = [];
+
+    // 同义词归一化
+    function normalizeText(text){
+      return text
+        .toLowerCase()
+        .replace(/[？?！!。，,]/g,"")
+        .replace(/啥/g,"什么")
+        .replace(/嘛|呀|啊|呢|吧/g,"")
+        .trim();
+    }
+
+    // 原规则问答
+    const qa = {
+      "你好":"你好呀 👋 我是校园IT技术服务的AI小助手～",
+      "你是谁":"我是站内AI小助手，负责介绍软件开发、网站建设、课程系统和程序调试服务。",
+      "你会什么":"我会介绍校园IT技术服务，也可以帮你解答基础问题，复杂问题我会交给DeepSeek大模型哦 😊",
+      "价格":"我们的定价非常透明实惠：网站建设¥500起，课程系统¥800起，程序调试¥50/小时，软件开发需要面谈。学生客户享9折优惠！",
+      "服务":"我们提供四大核心服务：软件开发、网站建设、课程系统定制、程序调试。",
+      "售后":"我们提供完善的售后服务：30天免费bug修复，3个月免费小功能优化，终身技术咨询。",
+      "联系方式":"你可以通过以下方式联系我们：邮箱 techservice@email.com，电话/微信 138-0000-0000。"
+    };
+
+    // 调用 DeepSeek API（使用 Puter SDK）
+    const callDeepSeekAPI = async (message) => {
+      const text = normalizeText(message);
+      
+      // 命中规则 → 本地回复
+      for(const k in qa){
+        if(text.includes(k)){
+          console.log('命中规则:', k);
+          return qa[k];
+        }
+      }
+
+      // 未命中 → 调用 DeepSeek（使用 Puter SDK）
+      console.log('未命中规则，调用 DeepSeek API...');
+      
+      // 构建完整消息（包含系统提示和历史记录）
+      let fullMessage = SYSTEM_PROMPT + '\n\n';
+      messageHistory.forEach(msg => {
+        fullMessage += `${msg.role === 'user' ? '用户' : '助手'}: ${msg.content}\n`;
+      });
+      fullMessage += `用户: ${message}\n助手:`;
+
+      try {
+        const res = await puter.ai.chat(fullMessage, { model: "deepseek/deepseek-chat" });
+        
+        // 添加到历史记录
+        messageHistory.push({ role: 'user', content: message });
+        messageHistory.push({ role: 'assistant', content: res });
+        
+        // 限制历史记录数量
+        if (messageHistory.length > 10) {
+          messageHistory = messageHistory.slice(-6);
+        }
+        
+        return res;
+      } catch(error) {
+        console.error('DeepSeek API 调用失败:', error);
+        return getAIResponse(message);
+      }
+    };
+
+    // 增强版AI回复引擎 - 本地规则引擎（作为回退）
+    const AI_RESPONSES = {
+      greetings: [
+        '您好！我是校园IT助手，很高兴为您服务 😊',
+        '您好！请问有什么我可以帮助您的吗？',
+        '你好！请问需要了解哪方面的服务？',
+        '嗨！欢迎咨询校园IT技术服务~'
+      ],
+      thanks: [
+        '不客气！有问题随时找我~',
+        '很高兴能帮到您！',
+        '不用客气，随时为您服务！'
+      ],
+      price: [
+        '我们的定价非常透明实惠：\n\n• 网站建设：¥500起\n• 软件开发：面谈（根据需求）\n• 课程系统：¥800起\n• 程序调试：¥50/小时\n\n学生客户享9折优惠！',
+        '价格参考：网站建设¥500起，课程系统¥800起，程序调试按小时计费。具体报价需要根据您的需求评估~',
+        '基础网站建设¥500起，复杂项目需要面谈评估。学生还有专属优惠哦！'
+      ],
+      time: [
+        '项目交付时间根据复杂度：\n\n• 简单网站：3-5天\n• 企业官网：7-10天\n• 管理系统：15-20天\n• 紧急项目：可48小时交付（加收30%加急费）',
+        '一般网站项目3-10天完成，复杂系统需要2-3周。如果着急可以加急处理~',
+        '交付时间要看具体需求，简单项目几天就能搞定！'
+      ],
+      tech: [
+        '我们的技术栈：\n\n• 前端：React、Vue.js、HTML5/CSS3\n• 后端：Java Spring Boot、Python Flask、Node.js\n• 数据库：MySQL、Redis、MongoDB\n• 部署：Docker、阿里云/腾讯云\n\n您需要什么技术栈？我可以推荐最合适的方案！',
+        '我们精通前后端开发，React/Vue/Node.js/Java都可以。具体用什么技术要看您的项目需求~',
+        '技术方面您不用担心，我们支持主流技术栈，会根据您的需求推荐最佳方案！'
+      ],
+      contact: [
+        '您可以通过以下方式联系我们：\n\n✉️ 邮箱：techservice@email.com\n📱 电话/微信：138-0000-0000\n💬 或直接在这里咨询，我24小时在线！',
+        '欢迎随时联系我们！邮箱：techservice@email.com，电话：138-0000-0000',
+        '有问题直接在这里问我就好，也可以发邮件或打电话联系~'
+      ],
+      service: [
+        '我们提供四大核心服务：\n\n💻 软件开发 - 定制化应用开发\n🌐 网站建设 - 企业官网、电商平台\n📚 课程系统 - 在线考试、作业管理\n🔧 程序调试 - Bug修复、性能优化\n\n您需要哪方面的服务？',
+        '校园IT技术服务包括：软件开发、网站建设、课程系统、程序调试。请问您对哪项服务感兴趣？',
+        '我们的服务覆盖IT领域多个方面，从网站到系统开发都可以！'
+      ],
+      aftersale: [
+        '我们的售后保障：\n\n✅ 30天免费bug修复\n✅ 3个月免费小功能优化\n✅ 终身技术咨询\n✅ 源码完整交付，支持二次开发\n\n有任何问题随时找我，7×24小时响应！',
+        '售后您放心！30天免费修复，终身技术支持，有问题随时联系~',
+        '我们提供完善的售后服务，让您没有后顾之忧！'
+      ],
+      student: [
+        '学生客户专享9折优惠！如果您是学生，可以告诉我，我帮您申请优惠~',
+        '学生朋友您好！我们对学生有特别优惠，9折哦！',
+        '学生身份可以享受9折优惠，需要提供学生证验证~'
+      ],
+      default: [
+        '感谢您的咨询！我已收到您的消息 😊\n\n我可以为您解答：\n• 💰 价格与报价\n• ⏱️ 交付时间\n• ⚙️ 技术方案\n• 📞 联系方式\n• 🛠️ 售后服务\n\n请详细描述您的需求，我会为您匹配最合适的方案！',
+        '很高兴为您服务！请问您需要了解哪方面的内容？\n\n• 价格咨询\n• 服务详情\n• 技术方案\n• 联系我们',
+        '请问有什么具体需求吗？我可以帮您分析并推荐合适的方案~'
+      ]
+    };
+
+    // 获取随机回复
+    const getRandomResponse = (responses) => {
+      return responses[Math.floor(Math.random() * responses.length)];
+    };
+
+    // AI回复逻辑 - 增强版规则引擎
+    const getAIResponse = (message) => {
+      const lowerMsg = message.toLowerCase();
+      
+      // 问候语检测
+      if (lowerMsg.includes('你好') || lowerMsg.includes('您好') || lowerMsg.includes('嗨') || lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+        return getRandomResponse(AI_RESPONSES.greetings);
+      }
+      
+      // 感谢语检测
+      if (lowerMsg.includes('谢谢') || lowerMsg.includes('感谢') || lowerMsg.includes('thank') || lowerMsg.includes('thanks')) {
+        return getRandomResponse(AI_RESPONSES.thanks);
+      }
+      
+      // 价格相关
+      if (lowerMsg.includes('价格') || lowerMsg.includes('报价') || lowerMsg.includes('多少钱') || lowerMsg.includes('贵不贵')) {
+        return getRandomResponse(AI_RESPONSES.price);
+      }
+      
+      // 时间相关
+      if (lowerMsg.includes('时间') || lowerMsg.includes('多久') || lowerMsg.includes('工期') || lowerMsg.includes('什么时候')) {
+        return getRandomResponse(AI_RESPONSES.time);
+      }
+      
+      // 技术相关
+      if (lowerMsg.includes('技术') || lowerMsg.includes('语言') || lowerMsg.includes('框架') || lowerMsg.includes('用什么')) {
+        return getRandomResponse(AI_RESPONSES.tech);
+      }
+      
+      // 联系方式
+      if (lowerMsg.includes('联系') || lowerMsg.includes('电话') || lowerMsg.includes('微信') || lowerMsg.includes('邮箱')) {
+        return getRandomResponse(AI_RESPONSES.contact);
+      }
+      
+      // 服务内容
+      if (lowerMsg.includes('服务') || lowerMsg.includes('做什么') || lowerMsg.includes('能帮我') || lowerMsg.includes('提供')) {
+        return getRandomResponse(AI_RESPONSES.service);
+      }
+      
+      // 售后服务
+      if (lowerMsg.includes('售后') || lowerMsg.includes('维护') || lowerMsg.includes('保修') || lowerMsg.includes('保障')) {
+        return getRandomResponse(AI_RESPONSES.aftersale);
+      }
+      
+      // 学生优惠
+      if (lowerMsg.includes('学生') || lowerMsg.includes('优惠') || lowerMsg.includes('折扣')) {
+        return getRandomResponse(AI_RESPONSES.student);
+      }
+      
+      // 网站建设相关
+      if (lowerMsg.includes('网站') || lowerMsg.includes('官网') || lowerMsg.includes('网页') || lowerMsg.includes('web')) {
+        return '网站建设我们很专业！\n\n• 企业官网：¥500起\n• 电商平台：¥2800起\n• 响应式设计，适配手机端\n• 包含SEO优化和1年免费维护\n\n需要做什么类型的网站？';
+      }
+      
+      // 软件开发相关
+      if (lowerMsg.includes('软件') || lowerMsg.includes('开发') || lowerMsg.includes('app') || lowerMsg.includes('系统')) {
+        return '软件开发我们经验丰富！\n\n• 支持Web应用、桌面程序、移动App\n• 使用React/Vue/Node.js/Java等技术\n• 从需求分析到交付上线全流程服务\n\n请描述您需要开发什么样的软件？';
+      }
+      
+      // 课程系统相关
+      if (lowerMsg.includes('课程') || lowerMsg.includes('考试') || lowerMsg.includes('作业') || lowerMsg.includes('教学')) {
+        return '课程系统定制是我们的特色服务！\n\n• 在线考试系统\n• 作业提交系统\n• 成绩分析管理\n• 学习进度追踪\n\n您需要什么样的教学辅助工具？';
+      }
+      
+      // 程序调试相关
+      if (lowerMsg.includes('调试') || lowerMsg.includes('bug') || lowerMsg.includes('错误') || lowerMsg.includes('修复')) {
+        return '程序调试服务随时待命！\n\n• 代码Bug定位与修复\n• 性能优化\n• 代码审查\n• 紧急问题响应\n\n遇到什么技术问题了？可以描述一下~';
+      }
+      
+      // 默认回复
+      return getRandomResponse(AI_RESPONSES.default);
+    };
+
+    // 添加消息到聊天窗口
+    const addMessage = (text, sender) => {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message message-${sender}`;
+      messageDiv.textContent = text;
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    // 添加加载状态
+    const addLoadingState = () => {
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'chat-message message-bot message-loading';
+      loadingDiv.innerHTML = '<span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>';
+      chatMessages.appendChild(loadingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return loadingDiv;
+    };
+
+    // 发送消息
+    const sendMessage = async () => {
+      const message = chatInput.value.trim();
+      if (!message) return;
+      
+      addMessage(message, 'user');
+      chatInput.value = '';
+      
+      const loadingDiv = addLoadingState();
+      
+      try {
+        const response = await callDeepSeekAPI(message);
+        loadingDiv.remove();
+        addMessage(response, 'bot');
+      } catch (error) {
+        console.error('发送消息失败:', error);
+        loadingDiv.remove();
+        addMessage('抱歉，我现在有点忙，请稍后再试。', 'bot');
+      }
+    };
+
+    // 聊天窗口切换
+    chatToggle.addEventListener('click', () => {
+      chatWindow.classList.toggle('active');
+    });
+
+    chatClose.addEventListener('click', () => {
+      chatWindow.classList.remove('active');
+    });
+
+    // 发送消息事件
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // 视频播放功能
+    playButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const videoUrl = btn.dataset.video;
+        modalVideo.src = videoUrl;
+        videoModal.classList.add('active');
+        videoModal.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      videoModal.classList.remove('active');
+      videoModal.setAttribute('aria-hidden', 'true');
+      modalVideo.pause();
+      modalVideo.src = '';
+    });
+
+    // 点击模态框外部关闭
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        closeModal.click();
+      }
+    });
+
+    // 页面加载完成后的初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('页面加载完成，AI智能助手已就绪！');
+      
+      // 咨询区聊天按钮事件
+      const contactChatButton = document.getElementById('contactChatButton');
+      if (contactChatButton) {
+        contactChatButton.addEventListener('click', () => {
+          chatWindow.classList.add('active');
+        });
+      }
+      
+      // Hero区聊天按钮事件
+      const heroChatButton = document.getElementById('heroChatButton');
+      if (heroChatButton) {
+        heroChatButton.addEventListener('click', () => {
+          chatWindow.classList.add('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
